@@ -1,8 +1,9 @@
 #include <string>
-#include <array>
+#include <vector>
 #ifndef ENCRYPT_H
 #define ENCRYPT_H
 namespace chiffrement {
+    template <class typeCle>
     class Encrypt
     {
     protected:
@@ -15,37 +16,39 @@ namespace chiffrement {
         virtual void encode() = 0;
         virtual void decode() = 0;
         void read();
-        void write();
+        void write(const typeCle pCleChiffrement);
     };
 
-    class Caesar : public Encrypt
+    class Caesar : public Encrypt<int>
     {
     private :
-        int decalage;
+        int _decalage;
     public :
         Caesar(bool pType, int pDecalage);
-        void encode(); //override;
-        void decode(); //override;
+        void encode() override;
+        void decode() override;
     };
 
-    class Caesar2 : public Encrypt
+    class Caesar2 : public Encrypt<int>
     {
     private :
-        int decalage;
+        int _decalage;
     public :
         Caesar2(bool pType ,int pDecalage);
-        void encode(); //override;
-        void decode(); //override;
+        void encode() override;
+        void decode() override;
     };
 
-    class Vigenere : public Encrypt
+    class Vigenere : public Encrypt<std::string>
     {
     private :
-        std::array<int,4> _cleChiffrement;
+        std::vector<int> _cleChiffrement;
+        std::string _cleFormeChaineCaracteres;
+
     public :
         Vigenere(bool pType);
-        void encode(); //override;
-        void decode(); //override;
+        void encode() override;
+        void decode() override;
     };
 }
 

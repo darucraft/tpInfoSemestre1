@@ -9,7 +9,6 @@ int main(int argc, char const *argv[])
     //int decalage;
     std::string choix;
     bool type;
-    std::array<int,4> cleChiffrement;
     //std::cout << "Saisir le decalage voulu" << std::endl;
     //std::cin >> decalage;
     do{
@@ -23,8 +22,5 @@ int main(int argc, char const *argv[])
         type = false;
 
     chiffrement::Vigenere cryptage(type);
-    cryptage.read();
-    cryptage.write();
-    std::cout << cryptage.getPlain() << std::endl << cryptage.getCypher() << std::endl;
     return 0;
 }
