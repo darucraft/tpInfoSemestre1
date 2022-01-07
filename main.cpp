@@ -3,24 +3,56 @@
 #include "encrypt.h"
 #include <fstream>
 #include <array>
+#include <cstdlib>
 
 int main(int argc, char const *argv[])
 {
-    //int decalage;
-    std::string choix;
+    int menu,choix;
     bool type;
-    //std::cout << "Saisir le decalage voulu" << std::endl;
-    //std::cin >> decalage;
-    do{
-        std::cout << "Saisir 1 pour Encoder le fichier ou 2 pour Décoder le fichier." << std::endl;
-        std::cin >> choix;
-    }while(choix != "1" && choix != "2");
-
-    if(choix=="1")
-        type = true;
-    else
-        type = false;
-
-    chiffrement::Vigenere cryptage(type);
-    return 0;
+    
+	do{
+		std::system("clear");
+		do{
+			std::cout << "Saisir 1 pour utiliser la méthode du chiffrement de Cesar sans les caractères spéciaux." << std::endl << std::endl;
+			std::cout << "Saisir 2 pour utiliser la méthode du chiffrement de Cesar avec tout les caractères spéciaux." << std::endl << std::endl;
+			std::cout << "Saisir 3 pour utiliser la méthode du chiffrement de Vigenere."<< std::endl << std::endl;
+			std::cout << "Saisir 4 pour Quitter." << std::endl;
+			std::cin >> menu;
+			}while(menu != 1 && menu != 2 && menu != 3 && menu != 4);
+			
+			if(menu!= 4)
+			{
+				do{
+					std::cout << std::endl << "Saisir 1 pour Encoder le fichier ou 2 pour Décoder le fichier." << std::endl;
+					std::cin >> choix;
+				}while(choix != 1 && choix != 2);
+				type = choix==1;
+			}
+			
+			switch(menu)
+			{
+				case(1) :
+				{
+					chiffrement::Caesar cryptage(type);
+					break;
+				}
+				case(2) :
+				{
+					chiffrement::Caesar2 cryptage(type);
+					break;
+				}
+				case(3) :
+				{
+					chiffrement::Vigenere cryptage(type);
+					cryptage.read();
+					break;
+				}
+			}
+		if(menu!= 4)
+			{
+				std::system("PAUSE");
+			}
+	
+	}while(menu!=4);
+	return 0;
 }

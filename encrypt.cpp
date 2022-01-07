@@ -7,16 +7,7 @@ namespace chiffrement {
     template <class typeCle>
     Encrypt<typeCle>::Encrypt(bool pType) : _type(pType)
     { }
-    template <class typeCle>
-    std::string Encrypt<typeCle>::getPlain()
-    {
-        return _plain;
-    }
-    template <class typeCle>
-    std::string Encrypt<typeCle>::getCypher()
-    {
-        return _cypher;
-    }
+
     template <class typeCle>
     void Encrypt<typeCle>::write(const typeCle pCleChiffrement)
     {
@@ -25,24 +16,25 @@ namespace chiffrement {
             std::ofstream fichierEncode("phraseEncode.txt", std::ios::app);
             if (fichierEncode)
             {
-                fichierEncode << std::endl << _cypher << std::endl;
-                std::cout << "Phrase(s) décryptées : " << std::endl << _plain << std::endl << "Phrase(s) cryptées avec la clé : " << pCleChiffrement << std::endl << _cypher << std::endl;
+                fichierEncode << _cypher << std::endl;
+                std::cout << std::endl << "Phrase(s) décryptées : " << std::endl << _plain << std::endl << "Phrase(s) cryptées avec la clé : " << pCleChiffrement << std::endl << _cypher << std::endl << std::endl;
             }
             else
-                std::cout << "Impossible d'ouvrir le fichier phraseEncode.txt";
+                std::cout << std::endl << "Impossible d'ouvrir le fichier phraseEncode.txt";
         }
         else
         {
             std::ofstream fichierDecode("phraseDecode.txt", std::ios::app);
             if (fichierDecode)
             {
-                fichierDecode << std::endl << _plain << std::endl;
-              	std::cout << "Phrase(s) cryptées : " << std::endl << _cypher << std::endl << "Phrase(s) décryptées avec la clé : " << pCleChiffrement << std::endl << _plain << std::endl;
+                fichierDecode << _plain << std::endl;
+              	std::cout << std::endl << "Phrase(s) cryptées : " << std::endl << _cypher << std::endl << "Phrase(s) décryptées avec la clé : " << pCleChiffrement << std::endl << _plain << std::endl << std::endl;
             }
             else
-                std::cout << "Impossible d'ouvrir le fichier phraseDecode.txt";
+                std::cout << std::endl << "Impossible d'ouvrir le fichier phraseDecode.txt";
         }
     }
+	
     template <class typeCle>
     void Encrypt<typeCle>::read()
     {
@@ -54,12 +46,13 @@ namespace chiffrement {
             {
                 while (getline(fichierDecode, save))
                 {
-                    _plain += save;
+                    _plain = save;
+					if(_plain != "")
+						this->encode();
                 }
-                this->encode();
             }
             else
-                std::cout << "Impossible d'ouvrir le fichier phraseDecode.txt";
+                std::cout << std::endl << "Impossible d'ouvrir le fichier phraseDecode.txt";
         }
         else{
             std::ifstream fichierEncode("phraseEncode.txt");
@@ -67,21 +60,24 @@ namespace chiffrement {
                 {
                     while (getline(fichierEncode, save))
                     {
-                         _cypher += save;
+                         _cypher = save;
+						 if(_cypher != "")
+							this->decode();
                     }
-                    this->decode();
                 }
                 else
-                    std::cout << "Impossible d'ouvrir le fichier phraseEncode.txt";
+                    std::cout << std::endl << "Impossible d'ouvrir le fichier phraseEncode.txt";
         }
 
     }
 
-    Caesar::Caesar(bool pType,int pDecalage) : Encrypt<int>(pType){
-        if (pDecalage > 25 || pDecalage < -25)
-            pDecalage %= 25;
-        _decalage = pDecalage;
-        this->read();
+	
+	
+	Caesar::Caesar(bool pType) : Encrypt<int>(pType){
+        _decalage = saisieDecalage();
+		if (_decalage > 25 || _decalage < -25)
+            _decalage %= 25;
+		this->read();
     }
 
     void Caesar::encode()
@@ -125,11 +121,13 @@ namespace chiffrement {
         this->write(_decalage);
     }
 
-     Caesar2::Caesar2(bool pType,int pDecalage) : Encrypt<int>(pType){
-        if (pDecalage > 127 || pDecalage < -127)
-            pDecalage %= 127;
-        _decalage = pDecalage;
-        this->read();
+    
+	
+	Caesar2::Caesar2(bool pType) : Encrypt<int>(pType){
+        _decalage = saisieDecalage();
+		if (_decalage > 25 || _decalage < -25)
+            _decalage %= 25;
+		this->read();
     }
 
     void Caesar2::encode()
@@ -168,11 +166,13 @@ namespace chiffrement {
         this->write(_decalage);
     }
 
+   
+   
    Vigenere::Vigenere(bool pType) : Encrypt<std::string>(pType){
        int longueur;
        char saisi;
        do{
-       		std::cout <<  "Saisir la longueur de la clé :" << std::endl;
+       		std::cout << std::endl <<  "Saisir la longueur de la clé :" << std::endl;
            	std::cin >> longueur;
            }while(longueur <= 0);
        for (auto i =0; i<longueur ;i++)
@@ -231,5 +231,13 @@ namespace chiffrement {
            _plain += char(index);
        }
        this->write(_cleFormeChaineCaracteres);
+   }
+   
+   int saisieDecalage()
+   {
+		int decalage;
+		std::cout << std::endl << "Saisir le decalage voulu" << std::endl;
+		std::cin >> decalage;
+		return(decalage);
    }
 }
