@@ -13,9 +13,9 @@ int main(int argc, char const *argv[])
 	do{
 		std::system("clear");
 		do{
-			std::cout << "Saisir 1 pour utiliser la méthode du chiffrement de Cesar sans les caractères spéciaux." << std::endl << std::endl;
-			std::cout << "Saisir 2 pour utiliser la méthode du chiffrement de Cesar avec tout les caractères spéciaux." << std::endl << std::endl;
-			std::cout << "Saisir 3 pour utiliser la méthode du chiffrement de Vigenere."<< std::endl << std::endl;
+			std::cout << "Saisir 1 pour utiliser la methode du chiffrement de Cesar sans les caracteres speciaux." << std::endl << std::endl;
+			std::cout << "Saisir 2 pour utiliser la methode du chiffrement de Cesar avec tout les caracteres speciaux." << std::endl << std::endl;
+			std::cout << "Saisir 3 pour utiliser la methode du chiffrement de Vigenere."<< std::endl << std::endl;
 			std::cout << "Saisir 4 pour Quitter." << std::endl;
 			std::cin >> menu;
 			}while(menu != 1 && menu != 2 && menu != 3 && menu != 4);
@@ -23,7 +23,7 @@ int main(int argc, char const *argv[])
 			if(menu!= 4)
 			{
 				do{
-					std::cout << std::endl << "Saisir 1 pour Encoder le fichier ou 2 pour Décoder le fichier." << std::endl;
+					std::cout << std::endl << "Saisir 1 pour Encoder le fichier ou 2 pour Decoder le fichier." << std::endl;
 					std::cin >> choix;
 				}while(choix != 1 && choix != 2);
 				type = choix==1;

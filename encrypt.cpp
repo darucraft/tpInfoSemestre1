@@ -17,7 +17,7 @@ namespace chiffrement {
             if (fichierEncode)
             {
                 fichierEncode << _cypher << std::endl;
-                std::cout << std::endl << "Phrase(s) décryptées : " << std::endl << _plain << std::endl << "Phrase(s) cryptées avec la clé : " << pCleChiffrement << std::endl << _cypher << std::endl << std::endl;
+                std::cout << std::endl << "Phrase(s) decryptees : " << std::endl << _plain << std::endl << "Phrase(s) cryptees avec la cle : " << pCleChiffrement << std::endl << _cypher << std::endl << std::endl;
             }
             else
                 std::cout << std::endl << "Impossible d'ouvrir le fichier phraseEncode.txt";
@@ -28,7 +28,7 @@ namespace chiffrement {
             if (fichierDecode)
             {
                 fichierDecode << _plain << std::endl;
-              	std::cout << std::endl << "Phrase(s) cryptées : " << std::endl << _cypher << std::endl << "Phrase(s) décryptées avec la clé : " << pCleChiffrement << std::endl << _plain << std::endl << std::endl;
+              	std::cout << std::endl << "Phrase(s) cryptees : " << std::endl << _cypher << std::endl << "Phrase(s) decryptees avec la cle : " << pCleChiffrement << std::endl << _plain << std::endl << std::endl;
             }
             else
                 std::cout << std::endl << "Impossible d'ouvrir le fichier phraseDecode.txt";
