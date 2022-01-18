@@ -4,10 +4,12 @@
 #include <array>
 
 namespace chiffrement {
+	#constructeur de la classe Encrypt
     template <class typeCle>
     Encrypt<typeCle>::Encrypt(bool pType) : _type(pType)
     { }
-
+	
+	#methode permettant d'afficher et d'écrire dans le fichier les phrases codées ou décodées
     template <class typeCle>
     void Encrypt<typeCle>::write(const typeCle pCleChiffrement)
     {
@@ -35,6 +37,7 @@ namespace chiffrement {
         }
     }
 	
+	#methode permettant de lire dans le fichier les phrases codées ou décodées
     template <class typeCle>
     void Encrypt<typeCle>::read()
     {
@@ -72,14 +75,15 @@ namespace chiffrement {
     }
 
 	
-	
+	#constructeur de la classe Caesar, héritant de Encrypt
 	Caesar::Caesar(bool pType) : Encrypt<int>(pType){
         _decalage = saisieDecalage();
 		if (_decalage > 25 || _decalage < -25)
             _decalage %= 25;
 		this->read();
     }
-
+	
+	#methode permettant d'encoder le texte de la variable _plain
     void Caesar::encode()
     {
         int index, i;
@@ -100,6 +104,8 @@ namespace chiffrement {
         }
         this->write(_decalage);
     }
+	
+	#methode permettant de decoder le texte de la variable _cypher
     void Caesar::decode()
     {
         int index, i;
@@ -123,13 +129,15 @@ namespace chiffrement {
 
     
 	
+	#constructeur de la classe Caesar2, héritant de Encrypt
 	Caesar2::Caesar2(bool pType) : Encrypt<int>(pType){
         _decalage = saisieDecalage();
 		if (_decalage > 25 || _decalage < -25)
             _decalage %= 25;
 		this->read();
     }
-
+	
+	#methode permettant d'encoder le texte de la variable _plain
     void Caesar2::encode()
     {
         int index, i;
@@ -147,7 +155,8 @@ namespace chiffrement {
         }
         this->write(_decalage);
     }
-
+	
+	#methode permettant de decoder le texte de la variable _cypher
     void Caesar2::decode()
     {
         int index, i;
@@ -167,7 +176,7 @@ namespace chiffrement {
     }
 
    
-   
+   #constructeur de la classe Vigenere, héritant de Encrypt
    Vigenere::Vigenere(bool pType) : Encrypt<std::string>(pType){
        int longueur;
        char saisi;
@@ -189,6 +198,7 @@ namespace chiffrement {
        this->read();
    }
 
+	#methode permettant d'encoder le texte de la variable _plain
    void Vigenere::encode()
    {
        int index,i;
@@ -211,6 +221,7 @@ namespace chiffrement {
        this->write(_cleFormeChaineCaracteres);
    }
 
+	#methode permettant de decoder le texte de la variable _cypher
    void Vigenere::decode()
    {
        int index, i;
@@ -233,6 +244,7 @@ namespace chiffrement {
        this->write(_cleFormeChaineCaracteres);
    }
    
+   #fonction de permettant la saisie du décalage
    int saisieDecalage()
    {
 		int decalage;

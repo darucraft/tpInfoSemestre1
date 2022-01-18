@@ -10,8 +10,10 @@ int main(int argc, char const *argv[])
     int menu,choix;
     bool type;
     
+	#boucle permettant d'executer le programme tant que l'utilisateur ne demande pas à quitter
 	do{
 		std::system("clear");
+		#boucle permettant d'afficher un menu guidant l'utilisateur dans ses choix d'algorithme d'encodage
 		do{
 			std::cout << "Saisir 1 pour utiliser la methode du chiffrement de Cesar sans les caracteres speciaux." << std::endl << std::endl;
 			std::cout << "Saisir 2 pour utiliser la methode du chiffrement de Cesar avec tout les caracteres speciaux." << std::endl << std::endl;
@@ -22,6 +24,7 @@ int main(int argc, char const *argv[])
 			
 			if(menu!= 4)
 			{
+				#boucle permettant d'afficher un menu permettant à l'utilisateur de choisir entre encoder ou décoder les phrases
 				do{
 					std::cout << std::endl << "Saisir 1 pour Encoder le fichier ou 2 pour Decoder le fichier." << std::endl;
 					std::cin >> choix;
