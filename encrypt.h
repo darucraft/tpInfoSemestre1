@@ -43,6 +43,8 @@ namespace chiffrement {
     class Vigenere : public Encrypt<std::string>
     {
     private :
+	/* tableau d'entier de taille 4 servant de clée pour la premiere question
+		std::array<int,4> _cleChiffrement;*/
         std::vector<int> _cleChiffrement;
         std::string _cleFormeChaineCaracteres;
 

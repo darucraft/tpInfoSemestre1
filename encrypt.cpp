@@ -4,12 +4,12 @@
 #include <array>
 
 namespace chiffrement {
-	#constructeur de la classe Encrypt
+	//constructeur de la classe Encrypt
     template <class typeCle>
     Encrypt<typeCle>::Encrypt(bool pType) : _type(pType)
     { }
 	
-	#methode permettant d'afficher et d'écrire dans le fichier les phrases codées ou décodées
+	//methode permettant d'afficher et d'écrire dans le fichier les phrases codées ou décodées
     template <class typeCle>
     void Encrypt<typeCle>::write(const typeCle pCleChiffrement)
     {
@@ -37,7 +37,7 @@ namespace chiffrement {
         }
     }
 	
-	#methode permettant de lire dans le fichier les phrases codées ou décodées
+	//methode permettant de lire dans le fichier les phrases codées ou décodées
     template <class typeCle>
     void Encrypt<typeCle>::read()
     {
@@ -75,7 +75,7 @@ namespace chiffrement {
     }
 
 	
-	#constructeur de la classe Caesar, héritant de Encrypt
+	//constructeur de la classe Caesar, héritant de Encrypt
 	Caesar::Caesar(bool pType) : Encrypt<int>(pType){
         _decalage = saisieDecalage();
 		if (_decalage > 25 || _decalage < -25)
@@ -83,7 +83,7 @@ namespace chiffrement {
 		this->read();
     }
 	
-	#methode permettant d'encoder le texte de la variable _plain
+	//methode permettant d'encoder le texte de la variable _plain
     void Caesar::encode()
     {
         int index, i;
@@ -95,17 +95,17 @@ namespace chiffrement {
             {
                 index += _decalage;
                 if (index > 122)
-                    index -= 25;
+                    index %= 25;
                 else
                     if( index < 97)
-                        index += 25;
+                        index %= 25;
             }
             _cypher += char(index);
         }
         this->write(_decalage);
     }
 	
-	#methode permettant de decoder le texte de la variable _cypher
+	//methode permettant de decoder le texte de la variable _cypher
     void Caesar::decode()
     {
         int index, i;
@@ -117,10 +117,10 @@ namespace chiffrement {
             {
                 index =- _decalage;
                 if (index < 97)
-                    index += 25;
+                    index %= 25;
                 else
                     if(index > 122)
-                        index -= 25;
+                        index %= 25;
             }
             _plain += char(index);
         }
@@ -129,7 +129,7 @@ namespace chiffrement {
 
     
 	
-	#constructeur de la classe Caesar2, héritant de Encrypt
+	//constructeur de la classe Caesar2, héritant de Encrypt
 	Caesar2::Caesar2(bool pType) : Encrypt<int>(pType){
         _decalage = saisieDecalage();
 		if (_decalage > 25 || _decalage < -25)
@@ -137,7 +137,7 @@ namespace chiffrement {
 		this->read();
     }
 	
-	#methode permettant d'encoder le texte de la variable _plain
+	//methode permettant d'encoder le texte de la variable _plain
     void Caesar2::encode()
     {
         int index, i;
@@ -156,7 +156,7 @@ namespace chiffrement {
         this->write(_decalage);
     }
 	
-	#methode permettant de decoder le texte de la variable _cypher
+	//methode permettant de decoder le texte de la variable _cypher
     void Caesar2::decode()
     {
         int index, i;
@@ -166,39 +166,65 @@ namespace chiffrement {
             index = int(_cypher[i]);
             index -= _decalage;
                 if (index < 0)
-                    index += 127;
+                    index %= 127;
                 else
                     if(index > 127)
-                        index -= 127;
+                        index %= 127;
             _plain += char(index);
         }
         this->write(_decalage);
     }
-
-   
-   #constructeur de la classe Vigenere, héritant de Encrypt
+	
+	
+   /*constructeur de la classe Vigenere, héritant de Encrypt utilisant une clé de longueur 4 pour la premiere question
    Vigenere::Vigenere(bool pType) : Encrypt<std::string>(pType){
-       int longueur;
-       char saisi;
-       do{
-       		std::cout << std::endl <<  "Saisir la longueur de la clé :" << std::endl;
+       for (auto i =0; i<4 ;i++)
+       {
+           std::cout << i << "ème élément de la clé de chiffrement" << std::endl;
+           std::cin >> _cleChiffrement.at(i);
+       }
+	   this->read();
+   }*/
+   
+    /*constructeur de la classe Vigenere, héritant de Encrypt utilisant une clé de longueur parametrable pour la deuxième question
+   Vigenere::Vigenere(bool pType) : Encrypt<std::vector<int>>(pType){
+	   int longueur,saisi;
+		do{
+       		std::cout << std::endl <<  "Saississez la clé :" << std::endl;
            	std::cin >> longueur;
            }while(longueur <= 0);
+		   
        for (auto i =0; i<longueur ;i++)
        {
-           do{
-           		std::cout << i+1 << "ème élément de la clé de chiffrement" << std::endl;
-           		std::cin >> saisi;
-           		if((int(saisi) <= 90) && (int(saisi) >= 65))
-           			saisi = char(int(saisi)+32);
-           	}while((int(saisi) < 97) || (int(saisi) > 122));
-           _cleFormeChaineCaracteres += saisi;
+           	std::cout << i+1 << "ème élément de la clé de chiffrement" << std::endl;
+           	std::cin >> saisi;
+           _cleChiffrement[i] = saisi;
+       }
+       this->read();
+   }*/
+   
+   
+   //constructeur de la classe Vigenere, héritant de Encrypt utilisant une clé sous forme de chaine de caractère
+   Vigenere::Vigenere(bool pType) : Encrypt<std::string>(pType){
+		char saisi;
+		do{
+       		std::cout << std::endl <<  "Saississez la clé :" << std::endl;
+           	std::cin >> _cleFormeChaineCaracteres;
+           }while(_cleFormeChaineCaracteres.length() <= 0);
+		   
+       for (auto i =0; i<int(_cleFormeChaineCaracteres.length()) ;i++)
+       {
+		   saisi = _cleFormeChaineCaracteres[i];
+           if((int(saisi) <= 90) && (int(saisi) >= 65))
+           		saisi = char(int(saisi)+32);
+			else if ((int(saisi) < 97) || (int(saisi) > 122))
+				saisi = char(97);
            _cleChiffrement.push_back(int(saisi)-96);
        }
        this->read();
    }
 
-	#methode permettant d'encoder le texte de la variable _plain
+	//methode permettant d'encoder le texte de la variable _plain
    void Vigenere::encode()
    {
        int index,i;
@@ -209,10 +235,10 @@ namespace chiffrement {
            index = int(_plain[i]);
            index += *it;
            if (index > 127)
-               index -= 127;
+               index %= 127;
            else
                if( index < 0)
-                   index += 127;
+                   index %= 127;
            it++;
            if(it==_cleChiffrement.end())
                it = _cleChiffrement.begin();
@@ -221,7 +247,7 @@ namespace chiffrement {
        this->write(_cleFormeChaineCaracteres);
    }
 
-	#methode permettant de decoder le texte de la variable _cypher
+	//methode permettant de decoder le texte de la variable _cypher
    void Vigenere::decode()
    {
        int index, i;
@@ -232,10 +258,10 @@ namespace chiffrement {
            index = int(_cypher[i]);
            index -= *it;
                if (index < 0)
-                   index += 127;
+                   index %= 127;
                else
                    if(index > 127)
-                       index -= 127;
+                       index %= 127;
            it++;
            if(it==_cleChiffrement.end())
                it = _cleChiffrement.begin();
@@ -244,7 +270,7 @@ namespace chiffrement {
        this->write(_cleFormeChaineCaracteres);
    }
    
-   #fonction de permettant la saisie du décalage
+   //fonction de permettant la saisie du décalage
    int saisieDecalage()
    {
 		int decalage;
