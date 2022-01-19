@@ -15,6 +15,7 @@ int main(int argc, char const *argv[])
 		std::system("clear");
 		//boucle permettant d'afficher un menu guidant l'utilisateur dans ses choix d'algorithme d'encodage
 		do{
+			menu =0;
 			std::cout << "Saisir 1 pour utiliser la methode du chiffrement de Cesar sans les caracteres speciaux." << std::endl << std::endl;
 			std::cout << "Saisir 2 pour utiliser la methode du chiffrement de Cesar avec tout les caracteres speciaux." << std::endl << std::endl;
 			std::cout << "Saisir 3 pour utiliser la methode du chiffrement de Vigenere."<< std::endl << std::endl;
@@ -29,7 +30,7 @@ int main(int argc, char const *argv[])
 					std::cout << std::endl << "Saisir 1 pour Encoder le fichier ou 2 pour Decoder le fichier." << std::endl;
 					std::cin >> choix;
 				}while(choix != 1 && choix != 2);
-				type = choix==1;
+				type = (choix==1);
 			}
 			
 			switch(menu)
@@ -47,7 +48,6 @@ int main(int argc, char const *argv[])
 				case(3) :
 				{
 					chiffrement::Vigenere cryptage(type);
-					cryptage.read();
 					break;
 				}
 			}

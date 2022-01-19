@@ -18,7 +18,7 @@ namespace chiffrement {
             std::ofstream fichierEncode("phraseEncode.txt", std::ios::app);
             if (fichierEncode)
             {
-                fichierEncode << _cypher << std::endl;
+                fichierEncode << std::endl << _cypher;
                 std::cout << std::endl << "Phrase(s) decryptees : " << std::endl << _plain << std::endl << "Phrase(s) cryptees avec la cle : " << pCleChiffrement << std::endl << _cypher << std::endl << std::endl;
             }
             else
@@ -29,7 +29,7 @@ namespace chiffrement {
             std::ofstream fichierDecode("phraseDecode.txt", std::ios::app);
             if (fichierDecode)
             {
-                fichierDecode << _plain << std::endl;
+                fichierDecode << std::endl << _plain;
               	std::cout << std::endl << "Phrase(s) cryptees : " << std::endl << _cypher << std::endl << "Phrase(s) decryptees avec la cle : " << pCleChiffrement << std::endl << _plain << std::endl << std::endl;
             }
             else
@@ -112,10 +112,10 @@ namespace chiffrement {
         _plain = "";
         for (i = 0; i < int(_cypher.length()); i++)
         {
-            index = int(_plain[i]);
+            index = int(_cypher[i]);
             if (index >= 97 && index <= 122)
             {
-                index =- _decalage;
+                index -= _decalage;
                 if (index < 97)
                     index %= 25;
                 else
@@ -180,7 +180,7 @@ namespace chiffrement {
    Vigenere::Vigenere(bool pType) : Encrypt<std::string>(pType){
        for (auto i =0; i<4 ;i++)
        {
-           std::cout << i << "ème élément de la clé de chiffrement" << std::endl;
+           std::cout << i << "eme element de la cle de chiffrement" << std::endl;
            std::cin >> _cleChiffrement.at(i);
        }
 	   this->read();
@@ -190,13 +190,13 @@ namespace chiffrement {
    Vigenere::Vigenere(bool pType) : Encrypt<std::vector<int>>(pType){
 	   int longueur,saisi;
 		do{
-       		std::cout << std::endl <<  "Saississez la clé :" << std::endl;
+       		std::cout << std::endl <<  "Saississez la cle :" << std::endl;
            	std::cin >> longueur;
            }while(longueur <= 0);
 		   
        for (auto i =0; i<longueur ;i++)
        {
-           	std::cout << i+1 << "ème élément de la clé de chiffrement" << std::endl;
+           	std::cout << i+1 << "eme element de la cle de chiffrement" << std::endl;
            	std::cin >> saisi;
            _cleChiffrement[i] = saisi;
        }
@@ -208,7 +208,7 @@ namespace chiffrement {
    Vigenere::Vigenere(bool pType) : Encrypt<std::string>(pType){
 		char saisi;
 		do{
-       		std::cout << std::endl <<  "Saississez la clé :" << std::endl;
+       		std::cout << std::endl <<  "Saississez la cle :" << std::endl;
            	std::cin >> _cleFormeChaineCaracteres;
            }while(_cleFormeChaineCaracteres.length() <= 0);
 		   
