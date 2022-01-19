@@ -273,9 +273,21 @@ namespace chiffrement {
    //fonction de permettant la saisie du décalage
    int saisieDecalage()
    {
+		std::string pDecalge;
 		int decalage;
-		std::cout << std::endl << "Saisir le decalage voulu" << std::endl;
-		std::cin >> decalage;
+		bool drapeau = true;
+		do{
+			std::cout << std::endl << "Saisir le decalage voulu" << std::endl;
+			std::cin >> pDecalge;
+			try 
+			{
+				decalage = std::stoi(pDecalge);				
+			}
+			catch(const std::exception& e)
+			{
+				drapeau = false;
+			}
+		}while(drapeau == false);
 		return(decalage);
    }
 }
