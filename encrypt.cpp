@@ -177,10 +177,10 @@ namespace chiffrement {
 	
 	
    /*constructeur de la classe Vigenere, héritant de Encrypt utilisant une clé de longueur 4 pour la premiere question
-   Vigenere::Vigenere(bool pType) : Encrypt<std::string>(pType){
+   Vigenere::Vigenere(bool pType) : Encrypt<std::array<int, 4>>(pType){
        for (auto i =0; i<4 ;i++)
        {
-           std::cout << i << "eme element de la cle de chiffrement" << std::endl;
+           std::cout << i+1 << "eme element de la cle de chiffrement" << std::endl;
            std::cin >> _cleChiffrement.at(i);
        }
 	   this->read();
