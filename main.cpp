@@ -4,6 +4,7 @@
 #include <fstream>
 #include <array>
 #include <cstdlib>
+#include <cstdio>
 
 int main(int argc, char const *argv[])
 {
@@ -69,7 +70,10 @@ int main(int argc, char const *argv[])
 			}
 		if(menu!= 4)
 			{
-				std::system("PAUSE");
+				//instructions permettant de mettre l'application en pause
+				std::cin.ignore();
+				std::cout << "Appuyer sur entrée pour continuer...";
+				std::cin.get();
 			}
 	
 	}while(menu!=4);
